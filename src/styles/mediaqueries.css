@@ -1,28 +1,54 @@
-/* HERO */
+/* ================= MOBILE HERO CLEAN ================= */
 @media (max-width: 768px) {
-    .uo-hero__title.is-on {
-        animation: neonMechanicalBootMobile 3s forwards;
+
+    .uo-hero {
+        min-height: auto;
+        padding: 3rem 1.5rem;
+        background: #030308;
+        /* per ora nero puro */
+    }
+
+    /* spegni completamente la cornice */
+    @media (max-width: 768px) {
+
+        .uo-sign {
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+
+    }
+
+    /* pulizia glow laterale */
+    .uo-hero::before,
+    .uo-hero::after {
+        display: none !important;
+        content: none !important;
+    }
+
+    .uo-hero__content {
+        gap: 1.8rem;
+    }
+
+    .uo-hero__title {
+        margin-bottom: 0.5rem;
     }
 }
 
-@keyframes neonMechanicalBootMobile {
-    100% {
-        opacity: 1;
-        text-shadow:
-            0 0 2px #fff,
-            0 0 6px #ff4dc4,
-            0 0 15px rgba(201, 22, 154, 0.6);
-    }
-}
 
+/* ========================= */
+/* WIZARD – MOBILE FIXED    */
+/* ========================= */
 
-/* WIZARD */
 @media (max-width: 900px) {
+
     .uo-wizard {
         position: fixed;
         left: 50% !important;
         transform: translateX(-50%);
-        bottom: 40px;
+        bottom: 30px;
         top: auto !important;
+        max-width: 90%;
     }
+
 }

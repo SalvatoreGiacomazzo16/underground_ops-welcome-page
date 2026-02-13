@@ -7,14 +7,41 @@
 .uo-hero {
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     background:
         radial-gradient(circle at 50% 40%,
             rgba(150, 20, 116, 0.08),
             transparent 60%),
         #030308;
+    padding-top: 4vh;
 }
+
+.uo-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+    animation: globalFlash 0.15s ease 2;
+    animation-delay: 1.9s;
+}
+
+@keyframes globalFlash {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
 
 .uo-hero__content {
     text-align: center;
@@ -135,6 +162,35 @@
     }
 }
 
+.uo-hero__title.is-on.is-stable {
+    animation: microFlashTitle 0.18s ease-out;
+}
+
+@keyframes microFlashTitle {
+    0% {
+        text-shadow:
+            0 0 4px #fff,
+            0 0 28px #ff4dc4,
+            0 0 65px #ff1fb3;
+    }
+
+    40% {
+        text-shadow:
+            0 0 6px #fff,
+            0 0 45px #ff4dc4,
+            0 0 90px #ff1fb3,
+            0 0 150px rgba(201, 22, 154, 1);
+    }
+
+    100% {
+        text-shadow:
+            0 0 4px #fff,
+            0 0 28px #ff4dc4,
+            0 0 65px #ff1fb3,
+            0 0 100px rgba(201, 22, 154, 0.8);
+    }
+}
+
 
 
 .uo-hero__subtitle {
@@ -227,4 +283,109 @@
 .uo-hero__cta:hover {
     background: rgba(201, 22, 154, 0.1);
     box-shadow: 0 0 20px rgba(201, 22, 154, 0.3);
+}
+
+
+/* BACKGROUND */
+
+.uo-hero__background {
+    padding: 4rem 6rem;
+    position: relative;
+}
+
+/* Stato iniziale: sfondo completamente nero */
+.uo-hero__background::before {
+    content: "";
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(ellipse at center,
+            rgba(255, 0, 140, 0.18),
+            transparent 70%);
+    filter: blur(40px);
+    opacity: 0;
+    /* parte invisibile */
+    transform: scale(0.9);
+    transition:
+        opacity 1.4s ease,
+        transform 1.4s ease;
+    pointer-events: none;
+}
+
+/* Si attiva SOLO quando neon è stabile */
+.uo-hero__background.is-glow-active::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.uo-hero__background.is-stable::before {
+    animation: backgroundFlash 0.25s ease-out forwards;
+}
+
+@keyframes backgroundFlash {
+    0% {
+        opacity: 0;
+        filter: blur(60px);
+    }
+
+    40% {
+        opacity: 1;
+        filter: blur(80px);
+        background: radial-gradient(ellipse at center,
+                rgba(255, 0, 140, 0.35),
+                transparent 60%);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(40px);
+        background: radial-gradient(ellipse at center,
+                rgba(255, 0, 140, 0.15),
+                transparent 70%);
+    }
+}
+
+/* Frame */
+
+.uo-sign {
+    position: relative;
+    padding: 1.8rem 6rem 0.5rem 6rem;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 24px;
+
+    border: 4px solid rgba(255, 0, 140, 0.6);
+
+    box-shadow:
+        0 0 10px rgba(255, 0, 140, 0.6),
+        0 0 30px rgba(255, 0, 140, 0.4),
+        inset 0 0 10px rgba(255, 0, 140, 0.2);
+
+    transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.uo-sign.is-on {
+    animation: signBoot 3.2s forwards;
+}
+
+@keyframes signBoot {
+    0% {
+        border-color: rgba(255, 0, 140, 0.05);
+        box-shadow: none;
+    }
+
+    40% {
+        border-color: rgba(255, 0, 140, 0.8);
+        box-shadow:
+            0 0 20px rgba(255, 0, 140, 0.8),
+            0 0 50px rgba(255, 0, 140, 0.6);
+    }
+
+    100% {
+        border-color: rgba(255, 0, 140, 0.6);
+        box-shadow:
+            0 0 15px rgba(255, 0, 140, 0.7),
+            0 0 40px rgba(255, 0, 140, 0.5),
+            inset 0 0 15px rgba(255, 0, 140, 0.25);
+    }
 }

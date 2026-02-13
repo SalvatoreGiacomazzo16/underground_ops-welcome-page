@@ -80,57 +80,63 @@ const HeroSystemBoot = () => {
 
     return (
         <section className="uo-hero">
-            <div className="uo-hero__content">
+            <div className={`uo-sign ${isOn ? "is-on" : ""}`}>
 
-                {/* TITLE */}
-                <h1 className={`uo-hero__title ${isOn ? "is-on" : ""}`}>
-                    <div className="uo-line">
-                        {renderLine(line1, 0.6, 0)}
-                    </div>
+                <div className={`uo-hero__background ${isStable ? "is-stable" : ""}`}>
 
-                    <div className="uo-line">
-                        {renderLine(line2, 1.6, line1.length)}
-                    </div>
-                </h1>
+                    <div className="uo-hero__content">
 
-                {/* SUBTITLE */}
-                <motion.p
-                    initial={{
-                        opacity: 0,
-                        y: 8,
-                        color: "rgba(255,255,255,0.08)"
-                    }}
-                    animate={
-                        isOn
-                            ? {
-                                opacity: 1,
-                                y: 0,
-                                color: "rgba(255,255,255,0.75)"
+                        {/* TITLE */}
+                        <h1 className={`uo-hero__title ${isOn ? "is-on" : ""} ${isStable ? "is-stable" : ""}`}>
+
+                            <div className="uo-line">
+                                {renderLine(line1, 0.6, 0)}
+                            </div>
+
+                            <div className="uo-line">
+                                {renderLine(line2, 1.6, line1.length)}
+                            </div>
+                        </h1>
+
+                        {/* SUBTITLE */}
+                        <motion.p
+                            initial={{
+                                opacity: 0,
+                                y: 8,
+                                color: "rgba(255,255,255,0.08)"
+                            }}
+                            animate={
+                                isOn
+                                    ? {
+                                        opacity: 1,
+                                        y: 0,
+                                        color: "rgba(255,255,255,0.75)"
+                                    }
+                                    : {}
                             }
-                            : {}
-                    }
-                    transition={{
-                        delay: 4.2,
-                        duration: 1.8,
-                        ease: "easeOut"
-                    }}
-                    className="uo-hero__subtitle"
-                >
-                    system control for underground events
-                </motion.p>
+                            transition={{
+                                delay: 4.2,
+                                duration: 1.8,
+                                ease: "easeOut"
+                            }}
+                            className="uo-hero__subtitle"
+                        >
+                            system control for underground events
+                        </motion.p>
 
-                {/* CTA */}
-                <motion.button
-                    initial={{ opacity: 0 }}
-                    animate={isOn ? { opacity: 1 } : {}}
-                    transition={{ delay: 4.8, duration: 1 }}
-                    className="uo-hero__cta"
-                >
-                    ENTER
-                </motion.button>
-
-            </div>
-        </section>
+                        {/* CTA */}
+                        <motion.button
+                            initial={{ opacity: 0 }}
+                            animate={isOn ? { opacity: 1 } : {}}
+                            transition={{ delay: 4.8, duration: 1 }}
+                            className="uo-hero__cta"
+                        >
+                            ENTER
+                        </motion.button>
+                    </div>
+                </div>
+            </div >
+        </section >
     );
 };
 
