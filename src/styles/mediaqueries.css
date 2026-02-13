@@ -8,17 +8,6 @@
         /* per ora nero puro */
     }
 
-    /* spegni completamente la cornice */
-    @media (max-width: 768px) {
-
-        .uo-sign {
-            border: none !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-        }
-
-    }
-
     /* pulizia glow laterale */
     .uo-hero::before,
     .uo-hero::after {
@@ -32,6 +21,77 @@
 
     .uo-hero__title {
         margin-bottom: 0.5rem;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .uo-hero {
+        background: url("/hero-background.png") center/cover no-repeat;
+    }
+
+    .uo-hero::before,
+    .uo-hero::after {
+        display: none;
+        /* spegni gutter */
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .uo-hero {
+        background: url("/hero-background.png") center/cover no-repeat;
+    }
+
+    .uo-hero::before,
+    .uo-hero::after {
+        display: none;
+    }
+
+    .uo-hero::after {
+        display: none;
+    }
+
+    .uo-hero::before {
+        display: none;
+    }
+
+    .uo-hero::before {
+        content: "";
+    }
+
+    .uo-hero::after {
+        content: "";
+    }
+
+    .uo-hero::before,
+    .uo-hero::after {
+        all: unset;
+    }
+
+    .uo-hero::before {
+        position: absolute;
+    }
+
+    .uo-hero::after {
+        position: absolute;
+    }
+
+    .uo-hero::after {
+        inset: 0;
+        background: radial-gradient(ellipse at center,
+                rgba(0, 0, 0, 0.95) 40%,
+                rgba(0, 0, 0, 0.75) 70%,
+                rgba(0, 0, 0, 0.5) 100%);
+        z-index: 1;
+    }
+
+    .uo-hero__content {
+        z-index: 2;
+        padding: 2.5rem 1.5rem;
     }
 }
 
