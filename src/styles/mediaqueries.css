@@ -1,0 +1,28 @@
+/* HERO */
+@media (max-width: 768px) {
+    .uo-hero__title.is-on {
+        animation: neonMechanicalBootMobile 3s forwards;
+    }
+}
+
+@keyframes neonMechanicalBootMobile {
+    100% {
+        opacity: 1;
+        text-shadow:
+            0 0 2px #fff,
+            0 0 6px #ff4dc4,
+            0 0 15px rgba(201, 22, 154, 0.6);
+    }
+}
+
+
+/* WIZARD */
+@media (max-width: 900px) {
+    .uo-wizard {
+        position: fixed;
+        left: 50% !important;
+        transform: translateX(-50%);
+        bottom: 40px;
+        top: auto !important;
+    }
+}

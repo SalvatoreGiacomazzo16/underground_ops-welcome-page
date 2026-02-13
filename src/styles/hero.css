@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Neonderthaw&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Megrim&display=swap');
+
+
+
+.uo-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at 50% 40%,
+            rgba(150, 20, 116, 0.08),
+            transparent 60%),
+        #030308;
+}
+
+.uo-hero__content {
+    text-align: center;
+    max-width: 900px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 2rem;
+}
+
+.uo-hero__title {
+    font-family: 'Monoton', cursive;
+    font-size: clamp(2.2rem, 8vw, 6rem);
+    margin-bottom: 1rem;
+    text-align: center;
+    letter-spacing: 0.1em;
+    position: relative;
+    color: #fff;
+    text-shadow:
+        0 0 2px #fff,
+        0 0 6px #ff4dc4,
+        0 0 14px #ff1fb3,
+        0 0 30px rgba(201, 22, 154, 0.8);
+}
+
+.uo-line {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.uo-hero__title::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    color: #ff1fb3;
+    filter: blur(8px);
+    opacity: 0.8;
+    z-index: -1;
+}
+
+.uo-hero__title.is-on {
+    animation: neonMechanicalBoot 3.2s forwards;
+}
+
+@keyframes neonMechanicalBoot {
+
+    0% {
+        opacity: 0;
+        text-shadow: none;
+        transform: translateX(0);
+    }
+
+    /* Primo pulse */
+    8% {
+        opacity: 1;
+        text-shadow:
+            0 0 3px #fff,
+            0 0 10px #ff4dc4;
+    }
+
+    14% {
+        opacity: 0;
+        text-shadow: none;
+    }
+
+    /* Secondo pulse + SCOSSA */
+    25% {
+        opacity: 1;
+        text-shadow:
+            0 0 4px #fff,
+            0 0 18px #ff4dc4,
+            0 0 35px #ff1fb3;
+        transform: translateX(-2px);
+    }
+
+    27% {
+        transform: translateX(2px);
+    }
+
+    29% {
+        transform: translateX(-1px);
+    }
+
+    31% {
+        transform: translateX(1px);
+    }
+
+    33% {
+        transform: translateX(0);
+    }
+
+    40% {
+        opacity: 0;
+        text-shadow: none;
+    }
+
+    /* Avviamento finale */
+    60% {
+        opacity: 1;
+        text-shadow:
+            0 0 4px #fff,
+            0 0 22px #ff4dc4,
+            0 0 50px #ff1fb3;
+    }
+
+    100% {
+        opacity: 1;
+        text-shadow:
+            0 0 4px #fff,
+            0 0 28px #ff4dc4,
+            0 0 65px #ff1fb3,
+            0 0 100px rgba(201, 22, 154, 0.8);
+        transform: translateX(0);
+    }
+}
+
+
+
+.uo-hero__subtitle {
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 6px rgba(255, 77, 196, 0.3);
+}
+
+
+.uo-letter {
+    display: inline-block;
+    font-family: 'Monoton', cursive;
+    color: #fff;
+    text-shadow:
+        0 0 2px #fff,
+        0 0 6px #ff4dc4,
+        0 0 16px #ff1fb3;
+}
+
+.uo-letter.pulse-active {
+    animation: neonPulse infinite ease-in-out;
+}
+
+
+@keyframes neonPulse {
+
+    0%,
+    100% {
+        text-shadow:
+            0 0 4px #fff,
+            0 0 12px #ff4dc4,
+            0 0 25px #ff1fb3,
+            0 0 45px rgba(201, 22, 154, 0.9);
+    }
+
+    50% {
+        text-shadow:
+            0 0 2px #fff,
+            0 0 6px #ff4dc4,
+            0 0 14px #ff1fb3,
+            0 0 25px rgba(201, 22, 154, 0.6);
+    }
+}
+
+
+.uo-letter.is-glitch {
+    animation: neonFlicker 0.2s linear;
+}
+
+@keyframes neonFlicker {
+    0% {
+        opacity: 1;
+    }
+
+    20% {
+        opacity: 0.2;
+        text-shadow: none;
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 0.3;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
+.uo-hero__cta {
+    background: transparent;
+    border: 1px solid rgba(201, 22, 154, 0.6);
+    color: var(--text-primary);
+    padding: 0.9rem 2.2rem;
+    letter-spacing: 0.15em;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    transition: all 0.4s var(--transition-smooth);
+}
+
+.uo-hero__cta:hover {
+    background: rgba(201, 22, 154, 0.1);
+    box-shadow: 0 0 20px rgba(201, 22, 154, 0.3);
+}
