@@ -2,8 +2,8 @@
 @import "./animations.css";
 @import "./hero.css";
 @import "./timelinepreview.css";
-@import "mediaqueries.css";
-
+@import "./mediaqueries.css";
+@import "./info-section.css";
 
 * {
     box-sizing: border-box;

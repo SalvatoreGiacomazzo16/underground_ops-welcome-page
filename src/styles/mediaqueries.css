@@ -112,3 +112,43 @@
     }
 
 }
+
+@media (max-width: 768px) {
+    .uo-line-title {
+        font-size: clamp(1.6rem, 6vw, 2.4rem);
+        line-height: 1.4;
+        letter-spacing: 2px;
+    }
+
+    .danger-wrapper {
+        display: block;
+        margin-top: 12px;
+    }
+
+    .question {
+        display: inline-block;
+    }
+}
+
+@media (max-width: 768px) {
+    .danger-letter.glitching {
+        animation-duration: 3.5s;
+    }
+}
+
+@media (max-width: 768px) {
+    .uo-info-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .uo-card-inner {
+        min-height: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .uo-info-grid {
+        margin-top: 60px;
+    }
+}

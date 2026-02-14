@@ -1,0 +1,442 @@
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+
+/* SECTION */
+.uo-info-section {
+    padding: 120px 5vw;
+}
+
+/* TITLE */
+.uo-title-sequence {
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.uo-line-title {
+    font-family: 'Monoton', cursive;
+    font-size: clamp(2rem, 4vw, 4rem);
+    letter-spacing: 3px;
+    color: white;
+    display: inline-block;
+    max-width: 100%;
+    word-break: break-word;
+}
+
+.uo-title-sequence {
+    min-height: 40vh;
+    padding: 0 4vw;
+}
+
+
+.letter {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(6px);
+    animation: revealLetter 0.6s ease forwards;
+}
+
+@keyframes revealLetter {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+
+.uo-line-title.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* DANGER */
+.danger {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+
+    color: #ff2e63;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+
+    text-shadow:
+        0 0 6px rgba(255, 46, 99, 0.6),
+        0 0 12px rgba(255, 46, 99, 0.4);
+}
+
+.danger.glitching {
+    animation: chaosShift 2.8s infinite steps(1, end);
+}
+
+@keyframes chaosShift {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    3% {
+        transform: translate(-4px, 1px);
+    }
+
+    6% {
+        transform: translate(3px, -1px);
+    }
+
+    9% {
+        transform: translate(-2px, 2px);
+    }
+
+    12% {
+        transform: translate(0, 0);
+    }
+
+    40% {
+        transform: translate(0, 0);
+    }
+
+    43% {
+        transform: translate(5px, -2px);
+    }
+
+    46% {
+        transform: translate(-3px, 1px);
+    }
+
+    49% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+
+
+.question {
+    color: white;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.question.visible {
+    opacity: 1;
+}
+
+/* GLITCH */
+.danger.glitching::before,
+.danger.glitching::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    pointer-events: none;
+}
+
+.danger.glitching::before {
+    color: #39ff14;
+    clip-path: inset(0 0 60% 0);
+    animation: sliceTop 2.8s infinite steps(1, end);
+}
+
+.danger.glitching::after {
+    color: #c9169a;
+    clip-path: inset(60% 0 0 0);
+    animation: sliceBottom 2.8s infinite steps(1, end);
+}
+
+
+@keyframes sliceTop {
+    0% {
+        transform: translate(0);
+    }
+
+    5% {
+        transform: translate(-6px, -2px);
+    }
+
+    7% {
+        transform: translate(4px, 1px);
+    }
+
+    10% {
+        transform: translate(0);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes sliceBottom {
+    0% {
+        transform: translate(0);
+    }
+
+    4% {
+        transform: translate(5px, 2px);
+    }
+
+    8% {
+        transform: translate(-4px, -1px);
+    }
+
+    11% {
+        transform: translate(0);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+.danger.glitching::marker {
+    display: none;
+}
+
+.danger.glitching::after {
+    background-image:
+        repeating-linear-gradient(to bottom,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.08) 3px);
+    mix-blend-mode: overlay;
+}
+
+.danger.glitching {
+    animation:
+        chaosShift 2.8s infinite steps(1, end),
+        flickerNoise 5s infinite;
+}
+
+@keyframes flickerNoise {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    92% {
+        opacity: 1;
+    }
+
+    94% {
+        opacity: 0.5;
+    }
+
+    96% {
+        opacity: 1;
+    }
+}
+
+.danger-wrapper {
+    display: inline-block;
+}
+
+.danger-letter {
+    position: relative;
+    display: inline-block;
+    color: #ff2e63;
+    transition: color 0.3s ease;
+}
+
+.danger-letter.glitching {
+    animation: letterGlitch 2.5s infinite steps(1, end);
+}
+
+@keyframes letterGlitch {
+    0% {
+        transform: translate(0);
+    }
+
+    3% {
+        transform: translate(-4px, 1px);
+    }
+
+    6% {
+        transform: translate(3px, -2px);
+    }
+
+    9% {
+        transform: translate(0);
+    }
+
+    50% {
+        transform: translate(0);
+    }
+
+    53% {
+        transform: translate(5px, -1px);
+    }
+
+    56% {
+        transform: translate(-3px, 2px);
+    }
+
+    59% {
+        transform: translate(0);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+
+@keyframes glitchTop {
+    0% {
+        transform: translate(0);
+    }
+
+    6% {
+        transform: translate(-5px);
+    }
+
+    12% {
+        transform: translate(5px);
+    }
+
+    18% {
+        transform: translate(0);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes glitchBottom {
+    0% {
+        transform: translate(0);
+    }
+
+    6% {
+        transform: translate(5px);
+    }
+
+    12% {
+        transform: translate(-5px);
+    }
+
+    18% {
+        transform: translate(0);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+
+.danger-letter.glitching::before,
+.danger-letter.glitching::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+.danger-letter.glitching::before {
+    color: #39ff14;
+    animation: glitchGreen 2.5s infinite steps(1, end);
+}
+
+.danger-letter.glitching::after {
+    color: #c9169a;
+    animation: glitchPink 2.5s infinite steps(1, end);
+}
+
+@keyframes glitchGreen {
+    0% {
+        transform: translate(0);
+        opacity: 0;
+    }
+
+    5% {
+        transform: translate(-3px);
+        opacity: 1;
+    }
+
+    10% {
+        transform: translate(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(0);
+        opacity: 0;
+    }
+}
+
+@keyframes glitchPink {
+    0% {
+        transform: translate(0);
+        opacity: 0;
+    }
+
+    6% {
+        transform: translate(3px);
+        opacity: 1;
+    }
+
+    12% {
+        transform: translate(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(0);
+        opacity: 0;
+    }
+}
+
+.danger-letter.glitching {
+    animation:
+        letterGlitch 2.5s infinite steps(1, end),
+        colorShift 4s infinite;
+}
+
+@keyframes colorShift {
+
+    0%,
+    100% {
+        color: #ff2e63;
+    }
+
+    48% {
+        color: #ff2e63;
+    }
+
+    50% {
+        color: #39ff14;
+    }
+
+    52% {
+        color: #ff2e63;
+    }
+}
+
+.chaos {
+    animation-duration: 1.2s !important;
+}
+
+
+/* CARDS */
+.uo-info-grid {
+    margin-top: 100px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    display: grid;
+    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.uo-info-grid.show {
+    opacity: 1;
+    transform: translateY(0);
+}

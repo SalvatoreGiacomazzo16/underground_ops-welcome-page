@@ -1,7 +1,7 @@
 import Layout from "../components/layout/Layout";
 import HeroSystemBoot from "../components/hero/HeroSystemBoot";
 import { MotionSection } from "../components/ui/MotionSection";
-import FeaturesSection from "../components/features/FeaturesSection";
+import InfoSection from "../components/features/InfoSection";
 import TimelinePreview from "../components/preview/TimelinePreview";
 
 
@@ -10,7 +10,7 @@ const Home = () => {
     return (
         <Layout>
             <HeroSystemBoot />
-            <FeaturesSection />
+            <InfoSection />
             <TimelinePreview />
 
             <MotionSection>
