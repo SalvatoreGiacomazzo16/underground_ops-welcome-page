@@ -3,7 +3,7 @@ import HeroSystemBoot from "../components/hero/HeroSystemBoot";
 import { MotionSection } from "../components/ui/MotionSection";
 import InfoSection from "../components/features/InfoSection";
 import TimelinePreview from "../components/preview/TimelinePreview";
-
+import AccessPortal from "../components/features/AcessPortal";
 
 
 const Home = () => {
@@ -16,6 +16,8 @@ const Home = () => {
             <MotionSection>
                 <div style={{ height: "100vh" }} />
             </MotionSection>
+            <AccessPortal />
+
 
             {/* Timeline Preview */}
             {/* CTA */}
