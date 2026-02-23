@@ -29,13 +29,11 @@ const WizardNarrative = ({
     totalSteps,
     onNext
 }: WizardNarrativeProps) => {
-
     const current = stepsContent[step - 1];
 
     return (
         <div className="uo-wizard-narrative">
 
-            {/* Progress dots */}
             <div className="uo-wizard-progress">
                 {Array.from({ length: totalSteps }).map((_, index) => (
                     <span
@@ -67,14 +65,12 @@ const WizardNarrative = ({
                         {current.description}
                     </p>
 
-                    {step < totalSteps && (
-                        <button
-                            className="uo-wizard-button"
-                            onClick={onNext}
-                        >
-                            Continue →
-                        </button>
-                    )}
+                    <button
+                        className="uo-wizard-button"
+                        onClick={onNext}
+                    >
+                        {step < totalSteps ? "Continue →" : "Activate Demo"}
+                    </button>
                 </motion.div>
             </AnimatePresence>
         </div>

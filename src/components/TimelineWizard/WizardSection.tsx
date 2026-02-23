@@ -4,11 +4,16 @@ import TimelinePreview from "./TimelinePreview";
 
 const WizardSection = () => {
     const [step, setStep] = useState(1);
+    const [isInteractive, setIsInteractive] = useState(false);
+
     const totalSteps = 3;
 
     const handleNext = () => {
         if (step < totalSteps) {
             setStep((prev) => prev + 1);
+        } else {
+            // finito wizard → attiva demo
+            setIsInteractive(true);
         }
     };
 
@@ -16,18 +21,19 @@ const WizardSection = () => {
         <section className="uo-wizard-section">
 
             <div className="uo-wizard-left">
-                <WizardNarrative
-                    step={step}
-                    totalSteps={totalSteps}
-                    onNext={handleNext}
-                />
+                {!isInteractive && (
+                    <WizardNarrative
+                        step={step}
+                        totalSteps={totalSteps}
+                        onNext={handleNext}
+                    />
+                )}
             </div>
 
             <div className="uo-wizard-right">
                 <TimelinePreview
                     step={step}
-                    totalSteps={totalSteps}
-                    onNext={handleNext}
+                    isInteractive={isInteractive}
                 />
             </div>
 
