@@ -226,3 +226,96 @@
 .uo-wizard button:hover {
     background: rgba(201, 22, 154, 0.1);
 }
+
+/* ================= WIZARD NARRATIVE ================= */
+
+.uo-wizard-narrative {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 480px;
+}
+
+.uo-wizard-progress {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.uo-wizard-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(201, 22, 154, 0.2);
+    transition: all 0.3s ease;
+}
+
+.uo-wizard-dot.is-active {
+    background: rgba(201, 22, 154, 1);
+    box-shadow: 0 0 12px rgba(201, 22, 154, 0.8);
+}
+
+.uo-wizard-step {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: rgba(201, 22, 154, 0.7);
+}
+
+.uo-wizard-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+    font-weight: 600;
+    color: white;
+}
+
+.uo-wizard-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(230, 230, 240, 0.85);
+}
+
+.uo-wizard-button {
+    width: fit-content;
+    padding: 0.6rem 1.2rem;
+    background: transparent;
+    border: 1px solid rgba(201, 22, 154, 0.6);
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.uo-wizard-button:hover {
+    background: rgba(201, 22, 154, 0.1);
+    box-shadow: 0 0 20px rgba(201, 22, 154, 0.5);
+}
+
+/* ================= WIZARD SECTION ================= */
+
+.uo-wizard-section {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    align-items: center;
+    gap: 6rem;
+    min-height: 100vh;
+    padding: 8rem 10vw;
+}
+
+.uo-wizard-left {
+    display: flex;
+    justify-content: center;
+}
+
+.uo-wizard-right {
+    display: flex;
+    justify-content: center;
+}
+
+/* MOBILE STACK CINEMATICO */
+
+@media (max-width: 768px) {
+    .uo-wizard-section {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        padding: 6rem 6vw;
+    }
+}
