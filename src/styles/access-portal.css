@@ -249,3 +249,287 @@
     margin-top: 14px;
     background: rgba(57, 255, 20, 0.15);
 }
+
+.uo-clerk-card {
+    background: rgba(8, 0, 18, 0.9);
+    border: 1px solid rgba(209, 0, 255, 0.22);
+    box-shadow: 0 0 28px rgba(209, 0, 255, 0.16);
+}
+
+.uo-clerk-title {
+    color: #ffffff;
+}
+
+.uo-clerk-subtitle {
+    color: #cdb8ff;
+}
+
+.uo-clerk-label {
+    color: #d9c9ff !important;
+}
+
+.uo-clerk-input {
+    background: #14001d !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(209, 0, 255, 0.22) !important;
+}
+
+.uo-clerk-input::placeholder {
+    color: #9d8abf !important;
+}
+
+.uo-clerk-social {
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.uo-clerk-continue {
+    background: linear-gradient(90deg, #7f3dff, #ff00c8) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 18px rgba(255, 0, 200, 0.28);
+}
+
+.uo-clerk-link {
+    color: #d66bff !important;
+}
+
+.cl-footer,
+.cl-internal-b3fm6y {
+    display: none !important;
+}
+
+.uo-clerk-title::after {
+    content: "Enter Control Room";
+}
+
+.cl-headerTitle {
+    font-size: 0;
+}
+
+.cl-headerTitle {
+    font-size: 0;
+}
+
+.cl-headerTitle::after {
+    content: "Enter Control Room";
+    font-size: 22px;
+    color: white;
+    font-weight: 600;
+}
+
+.cl-headerSubtitle {
+    font-size: 0;
+}
+
+.cl-headerSubtitle::after {
+    content: "Authenticate operator identity";
+    font-size: 14px;
+    color: #bfa6ff;
+}
+
+/* campo telefono */
+.cl-formFieldInput,
+.cl-phoneInputBox,
+.cl-phoneInputInput {
+    background: #14001d !important;
+    color: #ffffff !important;
+    border-color: rgba(209, 0, 255, 0.22) !important;
+}
+
+/* placeholder telefono */
+.cl-phoneInputInput::placeholder,
+.cl-formFieldInput::placeholder {
+    color: #9d8abf !important;
+}
+
+/* bottone selezione paese */
+.cl-phoneInputCountryButton {
+    background: #14001d !important;
+    color: #ffffff !important;
+    border-color: rgba(209, 0, 255, 0.22) !important;
+}
+
+/* testo del prefisso / label selettore */
+.cl-phoneInputCountryButton,
+.cl-phoneInputCountryCode,
+.cl-phoneInputCountrySelect,
+.cl-formFieldLabel {
+    color: #ffffff !important;
+}
+
+/* dropdown paese */
+.cl-phoneInputCountryList,
+.cl-selectOptionsContainer,
+.cl-selectOption {
+    background: #120018 !important;
+    color: #ffffff !important;
+}
+
+.cl-selectOption:hover,
+.cl-selectOption[data-highlighted] {
+    background: rgba(209, 0, 255, 0.18) !important;
+}
+
+/* OTP / code input */
+.cl-formFieldInputShowPasswordButton,
+.cl-otpCodeFieldInput,
+.cl-otpCodeFieldInput__character,
+.cl-formFieldInput {
+    color: #ffffff !important;
+}
+
+/* singole caselle del codice */
+.cl-otpCodeFieldInput {
+    background: #14001d !important;
+    border: 1px solid rgba(209, 0, 255, 0.22) !important;
+    color: #ffffff !important;
+    caret-color: #ffffff !important;
+    box-shadow: none !important;
+}
+
+/* placeholder/char interno */
+.cl-otpCodeFieldInput::placeholder {
+    color: #cdb8ff !important;
+}
+
+/* stato focus */
+.cl-otpCodeFieldInput:focus,
+.cl-otpCodeFieldInput[data-focus="true"] {
+    border-color: #d100ff !important;
+    box-shadow: 0 0 0 1px rgba(209, 0, 255, 0.45) !important;
+    color: #ffffff !important;
+}
+
+/* testo secondario del blocco verifica */
+.cl-formResendCodeLink,
+.cl-footerActionLink,
+.cl-navbarButton,
+.cl-formFieldHintText,
+.cl-formFieldErrorText {
+    color: #d66bff !important;
+}
+
+.cl-otpCodeFieldInput {
+    border-radius: 12px !important;
+    min-width: 48px !important;
+    min-height: 56px !important;
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+}
+
+.uo-auth-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.uo-auth-loader {
+    position: relative;
+    width: 84px;
+    height: 84px;
+    display: grid;
+    place-items: center;
+}
+
+.uo-auth-loader-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(209, 0, 255, 0.35);
+    box-shadow:
+        0 0 18px rgba(209, 0, 255, 0.18),
+        inset 0 0 18px rgba(209, 0, 255, 0.08);
+}
+
+.uo-auth-loader-ring::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    border-top: 2px solid #ff00c8;
+    border-right: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    border-left: 2px solid transparent;
+    animation: uoAuthSpin 1.25s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(255, 0, 200, 0.6));
+}
+
+.uo-auth-loader-core {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ff4fd8 0%, #d100ff 55%, #6f00ff 100%);
+    box-shadow:
+        0 0 10px rgba(255, 0, 200, 0.55),
+        0 0 22px rgba(157, 0, 255, 0.35);
+    animation: uoAuthPulse 1.6s ease-in-out infinite;
+}
+
+.uo-auth-loader-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-family: "JetBrains Mono", monospace;
+}
+
+.uo-auth-loader-line {
+    color: #f3eaff;
+    font-size: 0.98rem;
+    letter-spacing: 0.01em;
+}
+
+.uo-auth-loader-line--dim {
+    color: #bfa6ff;
+    opacity: 0.9;
+}
+
+.uo-dots::after {
+    content: "";
+    animation: uoDots 1.4s steps(4, end) infinite;
+}
+
+@keyframes uoAuthSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes uoAuthPulse {
+
+    0%,
+    100% {
+        transform: scale(0.92);
+        opacity: 0.82;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}
+
+@keyframes uoDots {
+    0% {
+        content: "";
+    }
+
+    25% {
+        content: ".";
+    }
+
+    50% {
+        content: "..";
+    }
+
+    75% {
+        content: "...";
+    }
+
+    100% {
+        content: "";
+    }
+}

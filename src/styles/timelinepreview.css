@@ -13,6 +13,7 @@
     display: flex;
     position: relative;
     align-items: flex-start;
+    overflow: hidden;
 }
 
 /* Axis */
@@ -49,6 +50,7 @@
     /* height is controlled by inline style from TSX when needed */
     border-left: 1px solid rgba(201, 22, 154, 0.4);
     margin-left: 20px;
+    overflow: hidden;
 }
 
 /* Blocks */

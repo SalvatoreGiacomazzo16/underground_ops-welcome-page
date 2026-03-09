@@ -1,6 +1,6 @@
 import { useState } from "react";
 import WizardNarrative from "./WizardNarrative";
-import TimelinePreview from "./TimelinePreview";
+import TimelineDemo from "./TimelineDemo";
 
 const WizardSection = () => {
     const [step, setStep] = useState(1);
@@ -31,10 +31,7 @@ const WizardSection = () => {
             </div>
 
             <div className="uo-wizard-right">
-                <TimelinePreview
-                    step={step}
-                    isInteractive={isInteractive}
-                />
+                <TimelineDemo />
             </div>
 
         </section>
