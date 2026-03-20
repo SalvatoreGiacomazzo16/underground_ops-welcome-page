@@ -260,3 +260,115 @@
         justify-content: center;
     }
 }
+
+.uo-wizard-live-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    max-width: 480px;
+    padding: 1.25rem 0;
+}
+
+.uo-wizard-live-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(255, 0, 200, 0.22);
+    border-radius: 999px;
+    background: rgba(255, 0, 200, 0.06);
+    color: #ff4fd8;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    box-shadow: 0 0 18px rgba(255, 0, 200, 0.12);
+}
+
+.uo-wizard-live-title {
+    margin: 0;
+    font-size: clamp(2rem, 3vw, 3rem);
+    line-height: 0.96;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.03em;
+    max-width: 12ch;
+}
+
+.uo-wizard-live-copy {
+    margin: 0;
+    max-width: 34ch;
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.uo-wizard-live-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(124, 255, 178, 0.08);
+    border: 1px solid rgba(124, 255, 178, 0.18);
+    color: #dffff0;
+    font-size: 0.92rem;
+    font-weight: 500;
+    box-shadow: 0 0 16px rgba(124, 255, 178, 0.08);
+}
+
+.uo-live-dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: #7cffb2;
+    box-shadow: 0 0 12px rgba(124, 255, 178, 0.55);
+    animation: uoLivePulse 1.6s ease-in-out infinite;
+}
+
+.uo-wizard-live-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 1rem 1.1rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.02) 100%);
+    box-shadow:
+        0 0 24px rgba(157, 0, 255, 0.10),
+        inset 0 0 22px rgba(255, 255, 255, 0.02);
+}
+
+.uo-wizard-live-card-title {
+    margin-bottom: 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #cdb8ff;
+}
+
+.uo-wizard-live-list {
+    margin: 0;
+    padding-left: 1rem;
+    display: grid;
+    gap: 0.45rem;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.94rem;
+    line-height: 1.4;
+}
+
+@keyframes uoLivePulse {
+
+    0%,
+    100% {
+        transform: scale(0.92);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}

@@ -3,7 +3,6 @@ import { resolveCollision } from "../engine/collision.ts";
 
 import type {
     Block,
-    WizardPhase,
     PointerDragState,
 } from "../engine/types.ts";
 
@@ -14,13 +13,10 @@ import {
 import {
     clampSlot,
     snapSlot,
-    pxToSlot,
 } from "../engine/math.ts";
 
-
-
 /* =========================================
-   INITIAL DEMO BLOCKS (temporary)
+   INITIAL DEMO BLOCKS
 ========================================= */
 
 const INITIAL_BLOCKS: Block[] = [
@@ -29,23 +25,21 @@ const INITIAL_BLOCKS: Block[] = [
     { id: "c", label: "Closing", startSlot: 14, durationSlots: 2 },
 ];
 
-
-
 /* =========================================
    HOOK
 ========================================= */
 
-export function useTimelineEngine() {
+type UseTimelineEngineOptions = {
+    interactive?: boolean;
+};
 
+export function useTimelineEngine(
+    options: UseTimelineEngineOptions = {}
+) {
+    const { interactive = true } = options;
 
     const config = DEFAULT_CONFIG;
-
     const [blocks, setBlocks] = useState<Block[]>(INITIAL_BLOCKS);
-    const [phase] = useState<WizardPhase>("intro"); // temporaneo
-    const collisionLock = true;
-    // per ora sempre attivo.
-    // nel layer successivo verrà controllato dalla state machine.
-
 
     const dragRef = useRef<PointerDragState>({
         isDragging: false,
@@ -55,9 +49,7 @@ export function useTimelineEngine() {
         startSlot: 0,
     });
 
-    const canvasTopRef = useRef<number>(0);
-
-
+    const captureElRef = useRef<HTMLElement | null>(null);
 
     /* =========================================
        POINTER DOWN
@@ -65,9 +57,12 @@ export function useTimelineEngine() {
 
     const onBlockPointerDown = useCallback(
         (blockId: string, e: React.PointerEvent) => {
+            if (!interactive) return;
 
-            const block = blocks.find(b => b.id === blockId);
+            const block = blocks.find((b) => b.id === blockId);
             if (!block) return;
+
+            const target = e.currentTarget as HTMLElement;
 
             dragRef.current = {
                 isDragging: true,
@@ -77,20 +72,11 @@ export function useTimelineEngine() {
                 startSlot: block.startSlot,
             };
 
-            const rect = (e.currentTarget as HTMLElement)
-                .closest("[data-timeline-canvas]")
-                ?.getBoundingClientRect();
-
-            if (rect) {
-                canvasTopRef.current = rect.top;
-            }
-
-            (e.target as HTMLElement).setPointerCapture(e.pointerId);
+            captureElRef.current = target;
+            target.setPointerCapture(e.pointerId);
         },
-        [blocks]
+        [blocks, interactive]
     );
-
-
 
     /* =========================================
        POINTER MOVE
@@ -98,75 +84,76 @@ export function useTimelineEngine() {
 
     const onCanvasPointerMove = useCallback(
         (e: React.PointerEvent) => {
-
             const drag = dragRef.current;
+            if (!interactive) return;
             if (!drag.isDragging || !drag.blockId) return;
 
             const deltaPx = e.clientY - drag.startClientY;
             const deltaSlots = deltaPx / config.slotHeightPx;
-
             const rawSlot = drag.startSlot + deltaSlots;
             const snapped = snapSlot(rawSlot);
 
-            const block = blocks.find(b => b.id === drag.blockId);
-            if (!block) return;
+            setBlocks((prev) => {
+                const movingBlock = prev.find((b) => b.id === drag.blockId);
+                if (!movingBlock) return prev;
 
-            const maxStart =
-                config.totalSlots - block.durationSlots;
+                const maxStart = config.totalSlots - movingBlock.durationSlots;
+                const clamped = clampSlot(snapped, 0, maxStart);
 
-            const clamped = clampSlot(snapped, 0, maxStart);
-
-            let finalSlot = clamped;
-
-            if (collisionLock) {
-                finalSlot = resolveCollision({
-                    movingId: drag.blockId,
+                const finalSlot = resolveCollision({
+                    movingId: drag.blockId!,
                     proposedStartSlot: clamped,
-                    blocks,
+                    blocks: prev,
                     totalSlots: config.totalSlots,
                 });
-            }
 
-            setBlocks(prev =>
-                prev.map(b =>
+                return prev.map((b) =>
                     b.id === drag.blockId
                         ? { ...b, startSlot: finalSlot }
                         : b
-                )
-            );
+                );
+            });
         },
-        [blocks, config]
+        [config, interactive]
     );
-
-
 
     /* =========================================
        POINTER UP
     ========================================= */
 
+    const endDrag = useCallback(() => {
+        dragRef.current = {
+            isDragging: false,
+            pointerId: null,
+            blockId: null,
+            startClientY: 0,
+            startSlot: 0,
+        };
+    }, []);
+
     const onCanvasPointerUp = useCallback(
         (e: React.PointerEvent) => {
-            if (!dragRef.current.isDragging) return;
+            const drag = dragRef.current;
+            if (!drag.isDragging) return;
 
-            dragRef.current = {
-                isDragging: false,
-                pointerId: null,
-                blockId: null,
-                startClientY: 0,
-                startSlot: 0,
-            };
+            if (
+                captureElRef.current &&
+                drag.pointerId !== null &&
+                captureElRef.current.hasPointerCapture(drag.pointerId)
+            ) {
+                captureElRef.current.releasePointerCapture(drag.pointerId);
+            }
 
-            (e.target as HTMLElement).releasePointerCapture(e.pointerId);
+            captureElRef.current = null;
+            endDrag();
         },
-        []
+        [endDrag]
     );
-
-
 
     return {
         config,
-        phase,
         blocks,
+        interactive,
         onBlockPointerDown,
         onCanvasPointerMove,
         onCanvasPointerUp,
