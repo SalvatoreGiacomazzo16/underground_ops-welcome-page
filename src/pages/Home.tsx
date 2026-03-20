@@ -4,6 +4,7 @@ import { MotionSection } from "../components/ui/MotionSection";
 import InfoSection from "../components/features/InfoSection";
 import AccessPortal from "../components/features/AccessPortal";
 import WizardSection from "../components/TimelineWizard/WizardSection";
+import Footer from "../components/Footer";
 
 const Home = () => {
     return (
@@ -17,6 +18,8 @@ const Home = () => {
             </MotionSection>
 
             <AccessPortal />
+
+            <Footer />
         </Layout>
     );
 };
