@@ -1,19 +1,9 @@
-
 import type { Block } from "./types.ts";
 import { overlaps } from "./math.ts";
-
-/* =========================================
-   CHECK SINGLE OVERLAP
-========================================= */
 
 export function isOverlapping(a: Block, b: Block): boolean {
     return overlaps(a, b);
 }
-
-/* =========================================
-   RESOLVE COLLISION
-   Hard guarantee: returns a valid slot
-========================================= */
 
 type ResolveArgs = {
     movingId: string;
@@ -28,53 +18,29 @@ export function resolveCollision({
     blocks,
     totalSlots,
 }: ResolveArgs): number {
-
-    const movingBlock = blocks.find(b => b.id === movingId);
+    const movingBlock = blocks.find((b) => b.id === movingId);
     if (!movingBlock) return proposedStartSlot;
 
     const duration = movingBlock.durationSlots;
 
-    // Clamp inside timeline
-    let candidate = Math.max(
-        0,
-        Math.min(proposedStartSlot, totalSlots - duration)
-    );
+    const sorted = [...blocks].sort((a, b) => a.startSlot - b.startSlot);
+    const currentIndex = sorted.findIndex((b) => b.id === movingId);
 
-    const others = blocks.filter(b => b.id !== movingId);
+    if (currentIndex === -1) return proposedStartSlot;
 
-    const collides = (startSlot: number) => {
-        const test: Block = {
-            ...movingBlock,
-            startSlot,
-        };
+    const prevBlock = currentIndex > 0 ? sorted[currentIndex - 1] : null;
+    const nextBlock =
+        currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null;
 
-        return others.some(b => overlaps(test, b));
-    };
+    const minStart = prevBlock
+        ? prevBlock.startSlot + prevBlock.durationSlots
+        : 0;
 
-    // Already valid
-    if (!collides(candidate)) {
-        return candidate;
-    }
+    const maxStart = nextBlock
+        ? nextBlock.startSlot - duration
+        : totalSlots - duration;
 
-    // Bidirectional scan (nearest valid)
-    let offset = 1;
+    const clamped = Math.max(minStart, Math.min(proposedStartSlot, maxStart));
 
-    while (offset < totalSlots) {
-
-        const up = candidate - offset;
-        const down = candidate + offset;
-
-        if (up >= 0 && !collides(up)) {
-            return up;
-        }
-
-        if (down + duration <= totalSlots && !collides(down)) {
-            return down;
-        }
-
-        offset++;
-    }
-
-    // fallback (should not happen)
-    return candidate;
+    return clamped;
 }

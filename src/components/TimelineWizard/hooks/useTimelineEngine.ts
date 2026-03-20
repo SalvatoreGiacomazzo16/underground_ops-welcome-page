@@ -93,6 +93,13 @@ export function useTimelineEngine(
             const rawSlot = drag.startSlot + deltaSlots;
             const snapped = snapSlot(rawSlot);
 
+            const direction =
+                snapped < drag.startSlot
+                    ? "up"
+                    : snapped > drag.startSlot
+                        ? "down"
+                        : "none";
+
             setBlocks((prev) => {
                 const movingBlock = prev.find((b) => b.id === drag.blockId);
                 if (!movingBlock) return prev;
@@ -141,7 +148,7 @@ export function useTimelineEngine(
                 drag.pointerId !== null &&
                 captureElRef.current.hasPointerCapture(drag.pointerId)
             ) {
-                captureElRef.current.releasePointerCapture(drag.pointerId);
+                captureElRef.current.releasePointerCapture(e.pointerId);
             }
 
             captureElRef.current = null;
