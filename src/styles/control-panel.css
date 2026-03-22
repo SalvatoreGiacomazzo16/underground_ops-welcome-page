@@ -227,3 +227,79 @@
         min-height: auto;
     }
 }
+
+/* ---------- Restored state polish ---------- */
+
+.uo-control-panel__status,
+.uo-control-panel__status-dot,
+.uo-control-panel__meta,
+.uo-control-panel__text,
+.uo-control-panel__tag {
+    transition:
+        color 0.35s ease,
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        opacity 0.35s ease;
+}
+
+.uo-control-panel__meter-fill {
+    transition:
+        width 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.35s ease,
+        background 0.35s ease;
+}
+
+.uo-control-panel.is-synced .uo-control-panel__meta {
+    color: rgba(255, 189, 233, 0.90);
+}
+
+.uo-control-panel.is-synced .uo-control-panel__meter-fill {
+    background: linear-gradient(90deg, #ff9be3 0%, #ff67c9 55%, #ffc1ef 100%);
+    box-shadow: 0 0 20px rgba(255, 96, 202, 0.34);
+}
+
+.uo-control-panel {
+    transition:
+        transform 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease,
+        background 0.4s ease,
+        filter 0.4s ease;
+}
+
+.uo-info-section.is-restoring .uo-control-panel {
+    transform: translateY(-4px);
+    filter: brightness(1.04);
+}
+
+.uo-control-panel.is-synced {
+    border-color: rgba(255, 132, 219, 0.24);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 24px 54px rgba(0, 0, 0, 0.42),
+        0 0 28px rgba(255, 92, 191, 0.12);
+}
+
+.uo-control-panel.is-synced .uo-control-panel__status {
+    background: rgba(255, 104, 204, 0.10);
+    border-color: rgba(255, 132, 219, 0.26);
+    color: #ffe0f3;
+    box-shadow: 0 0 18px rgba(255, 96, 202, 0.10);
+}
+
+.uo-control-panel.is-synced .uo-control-panel__status-dot {
+    background: #ff9ce3;
+    box-shadow:
+        0 0 12px rgba(255, 156, 227, 0.62),
+        0 0 24px rgba(255, 96, 202, 0.24);
+}
+
+.uo-control-panel.is-synced .uo-control-panel__log {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 132, 219, 0.12);
+}
+
+.uo-control-panel.is-synced .uo-control-panel__footer-value {
+    color: rgba(255, 221, 242, 0.88);
+}

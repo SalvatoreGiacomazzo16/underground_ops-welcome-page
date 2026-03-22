@@ -191,6 +191,55 @@
     z-index: 2;
 }
 
+.uo-schematic-core {
+    transition:
+        border-color 0.45s ease,
+        box-shadow 0.45s ease,
+        background 0.45s ease,
+        color 0.45s ease,
+        opacity 0.45s ease,
+        transform 0.45s ease;
+}
+
+.uo-schematic-node {
+    transition:
+        border-color 0.45s ease,
+        box-shadow 0.45s ease,
+        background 0.45s ease,
+        color 0.45s ease,
+        opacity 0.45s ease,
+        transform 0.45s ease;
+}
+
+.uo-info-section.is-restoring .uo-schematic-core {
+    transform: translateX(-50%) scale(1.06);
+}
+
+.uo-info-section.is-restoring .uo-node-timeline {
+    transform: translateY(-6px);
+}
+
+.uo-info-section.is-restoring .uo-node-staff {
+    transform: translateY(-6px);
+}
+
+.uo-info-section.is-restoring .uo-node-multiday {
+    transform: translateX(-50%) translateY(-6px);
+}
+
+.uo-info-section.is-restored .uo-schematic-core {
+    transform: translateX(-50%) scale(1);
+}
+
+.uo-info-section.is-restored .uo-node-timeline,
+.uo-info-section.is-restored .uo-node-staff {
+    transform: translateY(0);
+}
+
+.uo-info-section.is-restored .uo-node-multiday {
+    transform: translateX(-50%) translateY(0);
+}
+
 .uo-node-title {
     color: #f7f4fb;
     font-size: 1rem;
@@ -449,5 +498,244 @@
 
     .uo-node-multiday {
         width: 100%;
+    }
+}
+
+/* ---------- Degraded -> Restored system states ---------- */
+
+.uo-control-panel-trigger {
+    min-width: 0;
+}
+
+.uo-control-panel-trigger>.uo-control-panel {
+    height: 100%;
+}
+
+.uo-info-schematic {
+    transition:
+        opacity 0.8s ease 0.1s,
+        transform 0.8s ease 0.1s,
+        border-color 0.45s ease,
+        box-shadow 0.45s ease,
+        background 0.45s ease;
+}
+
+.uo-schematic-core,
+.uo-schematic-node,
+.uo-schematic-status,
+.uo-node-meta {
+    transition:
+        border-color 0.45s ease,
+        box-shadow 0.45s ease,
+        background 0.45s ease,
+        color 0.45s ease,
+        opacity 0.45s ease;
+}
+
+.uo-link {
+    overflow: hidden;
+    opacity: 0.42;
+    transition: opacity 0.35s ease, filter 0.35s ease, background 0.35s ease;
+}
+
+.uo-link::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.uo-link-core-left::after,
+.uo-link-core-right::after {
+    top: 0;
+    left: 0;
+    width: 42%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 214, 243, 0.95) 48%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: translateX(-145%);
+    animation: uoLinkFlowX 1.25s linear infinite paused;
+}
+
+.uo-link-core-bottom::after {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 42%;
+    background: linear-gradient(180deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 214, 243, 0.95) 48%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: translateY(-145%);
+    animation: uoLinkFlowY 1.25s linear infinite paused;
+}
+
+.uo-info-section.is-restoring .uo-info-schematic {
+    border-color: rgba(255, 122, 215, 0.22);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 24px 60px rgba(0, 0, 0, 0.34),
+        0 0 34px rgba(255, 84, 195, 0.08);
+}
+
+.uo-info-section.is-restoring .uo-schematic-core {
+    border-color: rgba(255, 132, 219, 0.24);
+    background: rgba(15, 10, 26, 0.84);
+    animation: uoCorePulseFast 1.15s ease-in-out infinite;
+}
+
+.uo-info-section.is-restoring .uo-schematic-status {
+    color: #ff8fd9;
+}
+
+.uo-info-section.is-restoring .uo-link,
+.uo-info-section.is-restored .uo-link {
+    opacity: 1;
+    filter: drop-shadow(0 0 12px rgba(255, 118, 214, 0.26));
+}
+
+.uo-info-section.is-restoring .uo-link::after {
+    opacity: 0.95;
+    animation-play-state: running;
+}
+
+.uo-info-section.is-restored .uo-info-schematic {
+    border-color: rgba(255, 134, 219, 0.24);
+    background:
+        radial-gradient(circle at 50% 50%, rgba(255, 70, 186, 0.10), transparent 34%),
+        linear-gradient(180deg, rgba(18, 11, 28, 0.92), rgba(9, 6, 18, 0.96));
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 26px 64px rgba(0, 0, 0, 0.36),
+        0 0 36px rgba(255, 98, 205, 0.10);
+}
+
+.uo-info-section.is-restored .uo-schematic-core {
+    border-color: rgba(255, 144, 224, 0.26);
+    background: rgba(16, 10, 26, 0.88);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 0 30px rgba(255, 96, 202, 0.18),
+        0 0 60px rgba(255, 96, 202, 0.08);
+    animation: uoCorePulseCalm 3.8s ease-in-out infinite;
+}
+
+.uo-info-section.is-restored .uo-schematic-node {
+    border-color: rgba(255, 132, 219, 0.18);
+    background: rgba(15, 9, 25, 0.84);
+}
+
+.uo-info-section.is-restored .uo-schematic-status {
+    color: #ffb3eb;
+}
+
+.uo-info-section.is-restored .uo-node-meta {
+    color: rgba(255, 194, 235, 0.92);
+}
+
+.uo-info-section.is-restored .uo-link::after {
+    opacity: 0.58;
+    animation-play-state: running;
+}
+
+.uo-info-section.is-restored .uo-link-core-left::after,
+.uo-info-section.is-restored .uo-link-core-right::after,
+.uo-info-section.is-restored .uo-link-core-bottom::after {
+    animation-duration: 2.1s;
+}
+
+@keyframes uoLinkFlowX {
+    from {
+        transform: translateX(-145%);
+    }
+
+    to {
+        transform: translateX(250%);
+    }
+}
+
+@keyframes uoLinkFlowY {
+    from {
+        transform: translateY(-145%);
+    }
+
+    to {
+        transform: translateY(250%);
+    }
+}
+
+@keyframes uoCorePulseFast {
+
+    0%,
+    100% {
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.04),
+            0 0 24px rgba(255, 92, 198, 0.10),
+            0 0 52px rgba(255, 92, 198, 0.04);
+    }
+
+    50% {
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.05),
+            0 0 34px rgba(255, 112, 208, 0.20),
+            0 0 72px rgba(255, 112, 208, 0.10);
+    }
+}
+
+@keyframes uoCorePulseCalm {
+
+    0%,
+    100% {
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.04),
+            0 0 28px rgba(255, 110, 209, 0.16),
+            0 0 58px rgba(255, 110, 209, 0.06);
+    }
+
+    50% {
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.05),
+            0 0 34px rgba(255, 138, 220, 0.22),
+            0 0 72px rgba(255, 138, 220, 0.08);
+    }
+}
+
+.uo-info-schematic::before {
+    content: "";
+    position: absolute;
+    inset: -18% auto -18% -32%;
+    width: 42%;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 216, 241, 0.12) 40%,
+            rgba(255, 255, 255, 0.34) 50%,
+            rgba(255, 216, 241, 0.12) 60%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: rotate(12deg) translateX(-140%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.uo-info-section.is-restoring .uo-info-schematic::before {
+    opacity: 1;
+    animation: uoSchematicSweep 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1;
+}
+
+@keyframes uoSchematicSweep {
+    0% {
+        transform: rotate(12deg) translateX(-140%);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: rotate(12deg) translateX(330%);
+        opacity: 0;
     }
 }

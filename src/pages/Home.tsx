@@ -13,9 +13,6 @@ const Home = () => {
             <InfoSection />
 
             <WizardSection />
-            <MotionSection>
-                <div style={{ height: "100vh" }} />
-            </MotionSection>
 
             <AccessPortal />
 

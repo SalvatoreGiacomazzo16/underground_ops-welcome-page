@@ -11,10 +11,22 @@ type ControlPanelProps = {
     uopsLogs: string[];
 };
 
-const META_BY_TITLE: Record<string, string> = {
-    "Timeline Engine": "slot collision pressure",
-    "Staff Allocation": "assignment drift",
-    "Multi-Day Matrix": "date context mismatch",
+const META_BY_TITLE: Record<
+    string,
+    { manual: string; uops: string }
+> = {
+    "Timeline Engine": {
+        manual: "slot collision pressure",
+        uops: "aligned timeline",
+    },
+    "Staff Allocation": {
+        manual: "assignment drift",
+        uops: "roles synchronized",
+    },
+    "Multi-Day Matrix": {
+        manual: "date context mismatch",
+        uops: "schedule unified",
+    },
 };
 
 function parseLog(log: string, fallbackTag: string) {
@@ -50,9 +62,14 @@ export default function ControlPanel({
         .slice(0, 2)
         .map((log) => parseLog(log, isManual ? "WARNING" : "OK"));
 
-    const meta = META_BY_TITLE[title] ?? "system state tracking";
+    const metaByTitle = META_BY_TITLE[title] ?? {
+        manual: "system state tracking",
+        uops: "system aligned",
+    };
+
+    const meta = isManual ? metaByTitle.manual : metaByTitle.uops;
     const statusLabel = isManual ? "DESYNC" : "SYNCED";
-    const stability = isManual ? 35 : 94;
+    const stability = isManual ? 35 : 98;
 
     return (
         <article

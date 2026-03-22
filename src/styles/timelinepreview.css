@@ -232,9 +232,10 @@
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     align-items: center;
-    gap: 6rem;
-    min-height: 100vh;
-    padding: 8rem 10vw;
+    gap: clamp(2.5rem, 4vw, 4.5rem);
+    min-height: auto;
+    padding: 6rem 10vw 3rem;
+    margin-bottom: 150px;
 }
 
 .uo-wizard-left {
