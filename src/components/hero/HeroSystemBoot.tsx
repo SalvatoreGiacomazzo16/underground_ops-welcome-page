@@ -9,7 +9,6 @@ const HeroSystemBoot = () => {
     const [isStable, setIsStable] = useState(false);
     const [glitchIndexes, setGlitchIndexes] = useState<number[]>([]);
 
-    // Boot iniziale
     useEffect(() => {
         const t = setTimeout(() => {
             setIsOn(true);
@@ -18,7 +17,6 @@ const HeroSystemBoot = () => {
         return () => clearTimeout(t);
     }, []);
 
-    // Stabilizzazione dopo boot (durata boot ~3.2s)
     useEffect(() => {
         if (!isOn) return;
 
@@ -29,7 +27,6 @@ const HeroSystemBoot = () => {
         return () => clearTimeout(t);
     }, [isOn]);
 
-    // Glitch random solo quando stabile
     useEffect(() => {
         if (!isStable) return;
 
@@ -46,6 +43,10 @@ const HeroSystemBoot = () => {
 
         return () => clearInterval(interval);
     }, [isStable]);
+
+    const handleEnter = () => {
+        window.dispatchEvent(new Event("uo:open-portal"));
+    };
 
     const renderLine = (
         text: string,
@@ -80,14 +81,9 @@ const HeroSystemBoot = () => {
 
     return (
         <section className="uo-hero">
-
             <div className={`uo-hero__background ${isStable ? "is-stable" : ""}`}>
-
                 <div className="uo-hero__content">
-
-                    {/* TITLE */}
                     <h1 className={`uo-hero__title ${isOn ? "is-on" : ""} ${isStable ? "is-stable" : ""}`}>
-
                         <div className="uo-line">
                             {renderLine(line1, 0.6, 0)}
                         </div>
@@ -97,7 +93,6 @@ const HeroSystemBoot = () => {
                         </div>
                     </h1>
 
-                    {/* SUBTITLE */}
                     <motion.p
                         initial={{
                             opacity: 0,
@@ -123,19 +118,19 @@ const HeroSystemBoot = () => {
                         system control for underground events
                     </motion.p>
 
-                    {/* CTA */}
                     <motion.button
+                        type="button"
                         initial={{ opacity: 0 }}
                         animate={isOn ? { opacity: 1 } : {}}
                         transition={{ delay: 4.8, duration: 1 }}
                         className="uo-hero__cta"
+                        onClick={handleEnter}
                     >
                         ENTER
                     </motion.button>
                 </div>
             </div>
-
-        </section >
+        </section>
     );
 };
 

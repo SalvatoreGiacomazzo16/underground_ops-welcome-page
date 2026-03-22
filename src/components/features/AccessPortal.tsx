@@ -9,25 +9,61 @@ export default function AccessPortal() {
     const [open, setOpen] = useState(false);
     const [phase, setPhase] = useState<Phase>("closed");
     const [typed, setTyped] = useState("");
+    const [heroVisible, setHeroVisible] = useState(true);
     const { isLoaded, isSignedIn } = useAuth();
 
     const full = "Access Protocol";
 
+    const openPortal = () => {
+        setOpen(true);
+        setPhase("typing");
+        setTyped("");
+    };
+
+    const closePortal = () => {
+        setOpen(false);
+        setPhase("closed");
+        setTyped("");
+    };
+
     const toggle = () => {
-        if (!open) {
-            setOpen(true);
-            setPhase("typing");
-            setTyped("");
-        } else {
-            setOpen(false);
-            setPhase("closed");
-            setTyped("");
-        }
+        if (open) closePortal();
+        else openPortal();
     };
 
     useEffect(() => {
         document.body.style.overflow = open ? "hidden" : "auto";
+        return () => {
+            document.body.style.overflow = "auto";
+        };
     }, [open]);
+
+    useEffect(() => {
+        const handleOpen = () => openPortal();
+
+        window.addEventListener("uo:open-portal", handleOpen);
+        return () => {
+            window.removeEventListener("uo:open-portal", handleOpen);
+        };
+    }, []);
+
+    useEffect(() => {
+        const hero = document.querySelector(".uo-hero");
+        if (!hero) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setHeroVisible(entry.isIntersecting);
+            },
+            {
+                threshold: 0.35
+            }
+        );
+
+        observer.observe(hero);
+
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
         if (!open || phase !== "typing") return;
@@ -62,11 +98,16 @@ export default function AccessPortal() {
         sequence();
     }, [open, phase]);
 
+    const orbHidden = heroVisible && !open;
+
     return (
         <>
             <button
-                className={`portal-orb ${open ? "active" : ""}`}
+                type="button"
+                className={`portal-orb ${open ? "active" : ""} ${orbHidden ? "is-hidden" : ""}`}
                 onClick={toggle}
+                aria-hidden={orbHidden}
+                tabIndex={orbHidden ? -1 : 0}
             >
                 {!open && <span className="orb-label">Join</span>}
             </button>

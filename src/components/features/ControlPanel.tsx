@@ -1,126 +1,113 @@
-import { useEffect, useState } from "react";
+import "../../styles/control-panel.css";
 
-type Props = {
+type Mode = "manual" | "uops";
+
+type ControlPanelProps = {
+    delay?: number;
+    mode: Mode;
+    highlightErrors?: boolean;
     title: string;
     manualLogs: string[];
     uopsLogs: string[];
-    mode: "manual" | "uops";
-    delay?: number;
-    highlightErrors?: boolean;
 };
 
+const META_BY_TITLE: Record<string, string> = {
+    "Timeline Engine": "slot collision pressure",
+    "Staff Allocation": "assignment drift",
+    "Multi-Day Matrix": "date context mismatch",
+};
+
+function parseLog(log: string, fallbackTag: string) {
+    const match = log.match(/^\[(.*?)\]\s*(.*)$/);
+    if (!match) {
+        return { tag: fallbackTag, text: log };
+    }
+
+    return {
+        tag: match[1].toUpperCase(),
+        text: match[2],
+    };
+}
+
+function getTagTone(tag: string, mode: Mode) {
+    if (mode === "uops") return "is-ok";
+
+    if (tag.includes("ERROR") || tag.includes("FAIL")) return "is-critical";
+    if (tag.includes("ALERT") || tag.includes("WARNING")) return "is-warning";
+    return "is-muted";
+}
+
 export default function ControlPanel({
+    delay = 0,
+    mode,
+    highlightErrors = false,
     title,
     manualLogs,
     uopsLogs,
-    mode,
-    delay = 0,
-    highlightErrors = false,
-}: Props) {
-    const [stabilized, setStabilized] = useState(false);
-    const [visibleLogs, setVisibleLogs] = useState<string[]>([]);
-    const [progress, setProgress] = useState(0);
+}: ControlPanelProps) {
+    const isManual = mode === "manual";
+    const logs = (isManual ? manualLogs : uopsLogs)
+        .slice(0, 2)
+        .map((log) => parseLog(log, isManual ? "WARNING" : "OK"));
 
-    const logs = stabilized ? uopsLogs : manualLogs;
-
-    /* =============================
-       MODE TRANSITION
-    ==============================*/
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setStabilized(mode === "uops");
-        }, delay);
-
-        return () => clearTimeout(timer);
-    }, [mode, delay]);
-
-    /* =============================
-       STREAM LOGS LIKE TERMINAL
-    ==============================*/
-    useEffect(() => {
-        setVisibleLogs([]);
-
-        let index = 0;
-
-        const stream = setInterval(() => {
-            if (index < logs.length) {
-                setVisibleLogs((prev) => [...prev, logs[index]]);
-                index++;
-            } else {
-                clearInterval(stream);
-            }
-        }, 180);
-
-        return () => clearInterval(stream);
-    }, [logs]);
-
-    /* =============================
-       PROGRESS ANIMATION
-    ==============================*/
-    useEffect(() => {
-        const target = stabilized ? 100 : 35;
-
-        let current = 0;
-        const interval = setInterval(() => {
-            current += stabilized ? 3 : 1.5;
-
-            if (current >= target) {
-                current = target;
-                clearInterval(interval);
-            }
-
-            setProgress(Math.floor(current));
-        }, 18);
-
-        return () => clearInterval(interval);
-    }, [stabilized]);
+    const meta = META_BY_TITLE[title] ?? "system state tracking";
+    const statusLabel = isManual ? "DESYNC" : "SYNCED";
+    const stability = isManual ? 35 : 94;
 
     return (
-        <div
-            className={`cr-panel ${stabilized ? "uops" : "manual"} ${highlightErrors && !stabilized ? "alerting" : ""
-                }`}
+        <article
+            className={[
+                "uo-control-panel",
+                isManual ? "is-desync" : "is-synced",
+                highlightErrors && isManual ? "is-live" : "",
+            ]
+                .filter(Boolean)
+                .join(" ")}
+            style={{ transitionDelay: `${delay}ms` }}
         >
+            <div className="uo-control-panel__ambient" />
 
-            {/* HEADER */}
-            <div className="cr-header">
-                <span className="cr-title">{title}</span>
-
-                <div className="cr-status-indicator">
-                    <span className={`cr-dot ${stabilized ? "safe" : "danger"}`} />
-                    <span className="cr-status-text">
-                        {stabilized ? "STABILIZED" : "UNSTABLE"}
-                    </span>
+            <header className="uo-control-panel__header">
+                <div className="uo-control-panel__heading">
+                    <h3 className="uo-control-panel__title">{title}</h3>
+                    <p className="uo-control-panel__meta">{meta}</p>
                 </div>
-            </div>
 
-            {/* LIVE LOGS */}
-            <div className="cr-logs">
-                {visibleLogs.map((log, i) => (
-                    <div
-                        key={i}
-                        className={`cr-log-line ${stabilized ? "ok" : "error"}`}
-                    >
-                        {log}
-                    </div>
+                <span className="uo-control-panel__status">
+                    <span className="uo-control-panel__status-dot" />
+                    {statusLabel}
+                </span>
+            </header>
+
+            <ul className="uo-control-panel__logs">
+                {logs.map((log, index) => (
+                    <li className="uo-control-panel__log" key={`${title}-log-${index}`}>
+                        <span
+                            className={[
+                                "uo-control-panel__tag",
+                                getTagTone(log.tag, mode),
+                            ].join(" ")}
+                        >
+                            {log.tag}
+                        </span>
+
+                        <span className="uo-control-panel__text">{log.text}</span>
+                    </li>
                 ))}
-            </div>
+            </ul>
 
-            {/* STATUS BAR */}
-            <div className="cr-status">
-                <div className="cr-bar">
-                    <div
-                        className="cr-bar-fill"
-                        style={{ width: `${progress}%` }}
+            <footer className="uo-control-panel__footer">
+                <span className="uo-control-panel__footer-label">stability</span>
+
+                <div className="uo-control-panel__meter">
+                    <span
+                        className="uo-control-panel__meter-fill"
+                        style={{ width: `${stability}%` }}
                     />
                 </div>
 
-                <div className="cr-percentage">
-                    {progress}%
-                </div>
-            </div>
-
-            {/* subtle monitor noise layer */}
-            <div className="cr-noise" />
-        </div>
+                <span className="uo-control-panel__footer-value">{stability}%</span>
+            </footer>
+        </article>
     );
 }
