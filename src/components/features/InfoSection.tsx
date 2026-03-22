@@ -35,7 +35,7 @@ export default function InfoSection() {
                     <h2 className="uo-info-title">
                         <span className="uo-info-title-line">WHAT HAPPENS WHEN</span>
                         <span className="uo-info-title-line">
-                            YOU <span className="uo-info-title-accent">LOSE CONTROL</span>?
+                            YOU <span className="uo-info-title-accent  uo-info-title-accent--flicker">LOSE CONTROL</span>?
                         </span>
                     </h2>
 

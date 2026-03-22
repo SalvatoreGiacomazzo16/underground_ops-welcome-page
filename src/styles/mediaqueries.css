@@ -54,16 +54,16 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        width: min(92vw, 27rem);
-        height: min(56vh, 25rem);
+        width: min(94vw, 28rem);
+        height: min(60vh, 27rem);
         transform: translate(-50%, -50%);
         background: radial-gradient(ellipse at center,
-                rgba(0, 0, 0, 0.82) 0%,
-                rgba(0, 0, 0, 0.66) 34%,
-                rgba(0, 0, 0, 0.36) 62%,
-                rgba(0, 0, 0, 0.12) 82%,
+                rgba(0, 0, 0, 0.90) 0%,
+                rgba(0, 0, 0, 0.74) 34%,
+                rgba(0, 0, 0, 0.42) 62%,
+                rgba(0, 0, 0, 0.16) 84%,
                 transparent 100%);
-        filter: blur(20px);
+        filter: blur(22px);
         z-index: -1;
         pointer-events: none;
     }
